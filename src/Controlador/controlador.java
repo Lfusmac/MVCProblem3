@@ -137,7 +137,7 @@ public class controlador implements ActionListener {
     }
 
     public void actualizarExportacion() {
-        met.Actualizar();
+        met.actualizarExportacion(ex);
     }
 
     /*

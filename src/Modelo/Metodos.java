@@ -124,7 +124,7 @@ public class Metodos {
     
     
 
-
+/*
     public void Actualizar() {
         Connection cn = Conexion.Conectar();
 
@@ -171,43 +171,34 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, "Error  " + ex);
         }
     }
+  */
     
-/*
-    PreparedStatement ps = null;
-        int r = 0;
-
-        String sql = "update exportacion set NombrePro=?, PresentacionPro=?, CantidadPro=?, TipoEnvio=?, CiudadOrigen=?, CiudadDestino=?, PaisDestino=?, MonedaPago=?,  NombreEmpleado=?, NombreFuncionario=?";
-
+    public static void actualizarExportacion(Exportacion exportacion) {
+        Connection cn = Conexion.Conectar();
         try {
-            Connection cn = Conexion.Conectar();
-            ps = cn.prepareStatement(sql);
-            ps.setString(1, ex.getNombrePro());
-            ps.setString(2, ex.getPresentacionPro());
-            ps.setString(3, ex.getCantidadPro());
-            ps.setString(4, ex.getTipoEnvio());
-            ps.setString(5, ex.getCiudadOrigen());
-            ps.setString(6, ex.getCiudadDestino());
-            ps.setString(7, ex.getPaisDestino());
-            ps.setString(8, ex.getMonedaPago());
-            ps.setString(9, ex.getNombreEmpleado());
-            ps.setString(10, ex.getNombreFuncionario());
-            ps.setInt(11, ex.getId());
-
-            r = ps.executeUpdate();
-            if (r == 1) {
-                return 1;
-
+            PreparedStatement ps = cn.prepareStatement("UPDATE exportacion SET NombrePro=?, PresentacionPro=?, CantidadPro=?, TipoEnvio=?, PaisDestino=?, CiudadOrigen=?, CiudadDestino=?, MonedaPago=?, NombreEmpleado=?, NombreFuncionario=? WHERE id=?");
+            ps.setString(1, exportacion.getNombrePro());
+            ps.setString(2, exportacion.getPresentacionPro());
+            ps.setString(3, exportacion.getCantidadPro());
+            ps.setString(4, exportacion.getTipoEnvio());
+            ps.setString(5, exportacion.getPaisDestino());
+            ps.setString(6, exportacion.getCiudadOrigen());
+            ps.setString(7, exportacion.getCiudadDestino());
+            ps.setString(8, exportacion.getMonedaPago());
+            ps.setString(9, exportacion.getNombreEmpleado());
+            ps.setString(10, exportacion.getNombreFuncionario());
+            ps.setInt(11, exportacion.getId());
+            int resultado = ps.executeUpdate();
+            if (resultado > 0) {
+                JOptionPane.showMessageDialog(null, "Exportación actualizada con éxito");
             } else {
-                return 0;
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna exportación con el id " + exportacion.getId());
             }
-
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la exportación " + ex);
         }
-        return r;
-    //}
+    }
 
-*/
-    
     
     public List Listar() {
 
