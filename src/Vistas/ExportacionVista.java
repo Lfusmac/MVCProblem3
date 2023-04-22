@@ -59,6 +59,8 @@ public class ExportacionVista extends javax.swing.JFrame {
         Btnsalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         BtnLimpiarF = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
         PanelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
@@ -189,6 +191,18 @@ public class ExportacionVista extends javax.swing.JFrame {
         });
         PanelExportacion.add(BtnLimpiarF, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 390, 140, -1));
 
+        txtBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        PanelExportacion.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 362, 330, 60));
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBuscar.setText("Buscar");
+        PanelExportacion.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, -1, -1));
+
         PanelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         PanelTabla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -197,7 +211,7 @@ public class ExportacionVista extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id Exportación", "Nombre Producto", "Presentación Producto", "Cantidad (Kilos)", "Tipo envio", "Cuidad origen", "Cuidad destino", "Pais destino", "Modeda de pago", "Empleado", "Funcionario"
+                "Id Exportación", "Nombre Producto", "Presentación Producto", "Cantidad (Kilos)", "Tipo envio", "Cuidad destino", "Cuidad origen", "Pais destino", "Modeda de pago", "Funcionario", "Empleado"
             }
         ));
         jScrollPane1.setViewportView(tabla);
@@ -209,16 +223,16 @@ public class ExportacionVista extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelTabla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PanelExportacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(PanelExportacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(PanelExportacion, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(PanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE))
         );
 
@@ -258,6 +272,11 @@ public class ExportacionVista extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_BtnEditarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,8 +352,10 @@ public class ExportacionVista extends javax.swing.JFrame {
     public javax.swing.JTextField TxtNombreP;
     public javax.swing.JComboBox<String> TxtPaises;
     public javax.swing.JComboBox<String> TxtPresentacionProducto;
+    public javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tabla;
+    public javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

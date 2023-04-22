@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-04-2023 a las 19:44:42
+-- Tiempo de generación: 23-04-2023 a las 00:24:30
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -47,10 +47,12 @@ CREATE TABLE `exportacion` (
 
 INSERT INTO `exportacion` (`id`, `NombrePro`, `PresentacionPro`, `CantidadPro`, `TipoEnvio`, `CiudadOrigen`, `CiudadDestino`, `PaisDestino`, `MonedaPago`, `NombreEmpleado`, `NombreFuncionario`) VALUES
 (13, 'Panela pulverizada', 'En polvo', '1000', 'Aéreo', 'Cali', 'Paris', 'Francia', 'Euros', 'Andres Cardona', 'Luis usma'),
-(14, 'Panela pulverizada', 'En polvo', '1000', 'Aéreo', 'Cali', 'Paris', 'Francia', 'Euros', 'Andres Cardona', 'Luis usma'),
+(14, 'Panela pulverizada', 'En polvo', '1025', 'Aéreo', 'Cali', 'Paris', 'Francia', 'Euros', 'Andres Cardona', 'Luis usma'),
 (15, 'Panela pulverizada', 'En polvo', '1000', 'Aéreo', 'Cali', 'Paris', 'Francia', 'Euros', 'Andres Cardona', 'Luis usma'),
-(16, 'Panela pulverizada', 'En polvo', '1000', 'Aéreo', 'Cali', 'Paris', 'Francia', 'Euros', 'Andres Cardona', 'Luis usma'),
-(31, 'Axucar', 'Entera', '250', 'Aéreo', 'Medellin', 'Madrid', 'España', 'Euros', 'henrry', 'Juan');
+(16, 'Panela en cuartos', 'Entera', '1000', 'Aéreo', 'Cali', 'Paris', 'Francia', 'Euros', 'Andres Cardona', 'Luis usma'),
+(31, 'Azucar blanca', 'Entera', '250', 'Aéreo', 'Medellin', 'Madrid', 'España', 'Euros', 'henrry', 'Juan'),
+(33, 'Azucar morena', 'Entera', '300', 'Aéreo', 'Medellin', 'Madrid', 'España', 'Euros', 'henrry', 'Juan'),
+(34, 'panela', 'Entera', '500', 'Marítimo', 'Antioquia', 'Paris', 'Francia', 'Euros', 'Don juan', 'Melissa');
 
 -- --------------------------------------------------------
 
@@ -104,7 +106,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `exportacion`
 --
 ALTER TABLE `exportacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

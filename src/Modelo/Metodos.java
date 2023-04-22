@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/*
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
- */
+
 /**
  *
  * @author Luis Felipe Usma C
@@ -121,85 +121,8 @@ public class Metodos {
 
         return 1;
     }
-    
-    
 
-/*
-    public void Actualizar() {
-        Connection cn = Conexion.Conectar();
-
-        try {
-            int id = Integer.parseInt(exv.tabla.getValueAt(exv.tabla.getSelectedRow(), 0).toString());
-            String NombrePro = exv.TxtNombreP.getText();
-            String PresentacionPro = exv.TxtPresentacionProducto.getSelectedItem().toString();
-            String CantidadPro = exv.TxtCantidad.getText();
-            String TipoEnvio = exv.TxtEnvio.getSelectedItem().toString();
-            String PaisDestino = exv.TxtPaises.getSelectedItem().toString();
-            String CiudadOrigen = exv.TxtCuidadOrigen.getText();
-            String CiudadDestino = exv.TxtCiudadDestino.getText();
-            String MonedaPago = exv.TxtMonedaPago.getSelectedItem().toString();
-            String NombreEmpleado = exv.TxtNombreEmp.getText();
-            String NombreFuncionario = exv.TxtNombreFunci.getText();
-
-            if (NombrePro.equals("") || PresentacionPro.equals("") || CantidadPro.equals("") || TipoEnvio.equals("") || PaisDestino.equals("") || CiudadOrigen.equals("") || CiudadDestino.equals("") || MonedaPago.equals("") || NombreEmpleado.equals("") || NombreFuncionario.equals("")) {
-
-                JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
-
-            } else {
-                
-
-                PreparedStatement ps = cn.prepareStatement("UPDATE exportacion SET "
-                        
-                        + "NombrePro='" + NombrePro + "', "
-                        + "PresentacionPro='" + PresentacionPro + "', "
-                        + "CantidadPro='" + CantidadPro + "', "
-                        + "TipoEnvio='" + TipoEnvio + "', "
-                        + "CiudadOrigen='" + CiudadOrigen + "', "
-                        + "CiudadDestino='" + CiudadDestino + "', "
-                        + "PaisDestino='" + PaisDestino + "', "
-                        + "MonedaPago='" + MonedaPago + "', "
-                        + "NombreEmpleado='" + NombreEmpleado + "', "
-                        + "NombreFuncionario='" + NombreFuncionario + "' "
-                        + "WHERE id='" + id + "'");
-
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Exportación actualizada con éxito");
-
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error  " + ex);
-        }
-    }
-  */
-    
-    public static void actualizarExportacion(Exportacion exportacion) {
-        Connection cn = Conexion.Conectar();
-        try {
-            PreparedStatement ps = cn.prepareStatement("UPDATE exportacion SET NombrePro=?, PresentacionPro=?, CantidadPro=?, TipoEnvio=?, PaisDestino=?, CiudadOrigen=?, CiudadDestino=?, MonedaPago=?, NombreEmpleado=?, NombreFuncionario=? WHERE id=?");
-            ps.setString(1, exportacion.getNombrePro());
-            ps.setString(2, exportacion.getPresentacionPro());
-            ps.setString(3, exportacion.getCantidadPro());
-            ps.setString(4, exportacion.getTipoEnvio());
-            ps.setString(5, exportacion.getPaisDestino());
-            ps.setString(6, exportacion.getCiudadOrigen());
-            ps.setString(7, exportacion.getCiudadDestino());
-            ps.setString(8, exportacion.getMonedaPago());
-            ps.setString(9, exportacion.getNombreEmpleado());
-            ps.setString(10, exportacion.getNombreFuncionario());
-            ps.setInt(11, exportacion.getId());
-            int resultado = ps.executeUpdate();
-            if (resultado > 0) {
-                JOptionPane.showMessageDialog(null, "Exportación actualizada con éxito");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ninguna exportación con el id " + exportacion.getId());
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar la exportación " + ex);
-        }
-    }
-
-    
+   
     public List Listar() {
 
         Connection cn = Conexion.Conectar();
@@ -237,9 +160,6 @@ public class Metodos {
         return datos;
     }
 
-  
-
-
     public void delete(int id) {
         Connection cn = Conexion.Conectar();
         PreparedStatement ps = null;
@@ -254,5 +174,6 @@ public class Metodos {
         }
 
     }
+    
 
 }

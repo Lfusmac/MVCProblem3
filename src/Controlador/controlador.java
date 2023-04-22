@@ -4,19 +4,28 @@
  */
 package Controlador;
 
+import Modelo.Conexion;
 import Vistas.ExportacionVista;
 import Modelo.Exportacion;
 import Modelo.Metodos;
 import Modelo.usuario;
 import Vistas.Login;
 import Vistas.Registro;
+import com.sun.jdi.connect.spi.Connection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -62,6 +71,115 @@ public class controlador implements ActionListener {
         this.exv.BtnActualizar.addActionListener(this);
         this.exv.BtnEiminar.addActionListener(this);
         this.exv.BtnLimpiarF.addActionListener(this);
+        this.exv.btnBuscar.addActionListener(this);
+
+    }
+
+    //Eventos
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        //Botones Vista exportación
+        if (e.getSource() == exv.BtnGuardar) {
+
+            try {
+                agregar();
+                limpiarFormulario();
+                limpiarTabla();
+                Listar(exv.tabla);
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(exv, "no se pudo crear Expotación");
+            }
+
+        }
+
+        if (e.getSource() == exv.Btnsalir) {
+
+            log.setVisible(true);
+            exv.setVisible(false);
+
+        }
+        if (e.getSource() == exv.BtnListar) {
+
+            Listar(exv.tabla);
+            limpiarTabla();
+            Listar(exv.tabla);
+
+        }
+        if (e.getSource() == exv.BtnEditar) {
+            mostrarExportacionParaEditar();
+        }
+        if (e.getSource() == exv.BtnActualizar) {
+
+            actualizarExportacion();
+            limpiarFormulario();
+            limpiarTabla();
+            Listar(exv.tabla);
+
+        }
+        if (e.getSource() == exv.BtnEiminar) {
+
+            delete();
+            limpiarFormulario();
+            limpiarTabla();
+            Listar(exv.tabla);
+
+        }
+        if (e.getSource() == exv.BtnLimpiarF) {
+
+            limpiarFormulario();
+            limpiarTabla();
+            Listar(exv.tabla);
+
+        }
+
+        if (e.getSource() == exv.btnBuscar) {
+
+           
+            buscarDatos();
+        }
+
+        // Botones registrar usurio
+        if (e.getSource() == reg.BtnRegistrar) {
+
+            Registrar();
+
+        }
+
+        if (e.getSource() == reg.BtnSalir) {
+            System.exit(0);
+
+        }
+        if (e.getSource() == reg.BtnMenu) {
+            log.setVisible(true);
+            reg.setVisible(false);
+
+        }
+        if (e.getSource() == reg.BtnLimpiar) {
+
+            limpiarFormulario();
+
+        }
+
+        //Botones login  
+        if (e.getSource() == log.btnIngresar) {
+            Ingreso();
+
+        }
+        if (e.getSource() == log.BtnRegistro) {
+
+            reg.setVisible(true);
+            log.setVisible(false);
+
+        }
+
+        if (e.getSource() == log.BtnSalir) {
+
+            System.exit(0);
+
+        }
 
     }
 
@@ -137,80 +255,119 @@ public class controlador implements ActionListener {
     }
 
     public void actualizarExportacion() {
-        met.actualizarExportacion(ex);
-    }
+        java.sql.Connection cn = Conexion.Conectar();
 
-    /*
-public void actualizar() {
-    int fila = exv.tabla.getSelectedRow();
-    if (fila == -1) {
-        JOptionPane.showMessageDialog(null, "Debe seleccionar una exportación");
-    } else {
-        String NombrePro = exv.TxtNombreP.getText();
-        String PresentacionPro = exv.TxtPresentacionProducto.getSelectedItem().toString();
-        String CantidadPro = exv.TxtCantidad.getText();
-        String TipoEnvio = exv.TxtEnvio.getSelectedItem().toString();
-        String PaisDestino = exv.TxtPaises.getSelectedItem().toString();
-        String CiudadOrigen = exv.TxtCuidadOrigen.getText();
-        String CiudadDestino = exv.TxtCiudadDestino.getText();
-        String MonedaPago = exv.TxtMonedaPago.getSelectedItem().toString();
-        String NombreEmpleado = exv.TxtNombreEmp.getText();
-        String NombreFuncionario = exv.TxtNombreFunci.getText();
-
-        if (NombrePro.equals("") || PresentacionPro.equals("") || CantidadPro.equals("") || TipoEnvio.equals("") || PaisDestino.equals("") || CiudadOrigen.equals("") || CiudadDestino.equals("") || MonedaPago.equals("") || NombreEmpleado.equals("") || NombreFuncionario.equals("")) {
-
-            JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
-
-        } else {
-            int id = Integer.parseInt(exv.tabla.getValueAt(fila, 0).toString());
-            ex.setId(id);
-            ex.setNombrePro(NombrePro);
-            ex.setPresentacionPro(PresentacionPro);
-            ex.setCantidadPro(CantidadPro);
-            ex.setTipoEnvio(TipoEnvio);
-            ex.setPaisDestino(PaisDestino);
-            ex.setCiudadOrigen(CiudadOrigen);
-            ex.setCiudadDestino(CiudadDestino);
-            ex.setMonedaPago(MonedaPago);
-            ex.setNombreEmpleado(NombreEmpleado);
-            ex.setNombreFuncionario(NombreFuncionario);
-            
-                    }
-    }
-}
-      public void actualizar() {
-
-        int id = Integer.parseInt(exv.TxtId.getText());
-        String NombrePro = exv.TxtNombreP.getText();
-        String PresentacionPro = exv.TxtPresentacionProducto.getSelectedItem().toString();
-        String CantidadPro = exv.TxtCantidad.getText();
-        String TipoEnvio = exv.TxtEnvio.getSelectedItem().toString();
-        String PaisDestino = exv.TxtPaises.getSelectedItem().toString();
-        String CiudadOrigen = exv.TxtCuidadOrigen.getText();
-        String CiudadDestino = exv.TxtCiudadDestino.getText();
-        String MonedaPago = exv.TxtMonedaPago.getSelectedItem().toString();
-        String NombreEmpleado = exv.TxtNombreEmp.getText();
-        String NombreFuncionario = exv.TxtNombreFunci.getText();
-        ex.setId(id);
-        ex.setNombrePro(NombrePro);
-        ex.setPresentacionPro(PresentacionPro);
-        ex.setCantidadPro(CantidadPro);
-        ex.setTipoEnvio(TipoEnvio);
-        ex.setPaisDestino(PaisDestino);
-        ex.setCiudadOrigen(CiudadOrigen);
-        ex.setCiudadDestino(CiudadDestino);
-        ex.setMonedaPago(MonedaPago);
-        ex.setNombreEmpleado(NombreEmpleado);
-        ex.setNombreFuncionario(NombreFuncionario);
-        int r = met.Actualizar();
-        
-        if (r == 1) {
-            JOptionPane.showMessageDialog(exv, "Exportación acutiliza con exito");
-        } else {
-            JOptionPane.showMessageDialog(exv, "No se pudo actualizar exportación");
+        // Verificar si se ha seleccionado una fila
+        int filaSeleccionada = exv.tabla.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para actualizar");
+            return;
         }
 
-    }*/
+        try {
+            int id = Integer.parseInt(exv.tabla.getValueAt(filaSeleccionada, 0).toString());
+            String NombrePro = exv.TxtNombreP.getText();
+            String PresentacionPro = exv.TxtPresentacionProducto.getSelectedItem().toString();
+            String CantidadPro = exv.TxtCantidad.getText();
+            String TipoEnvio = exv.TxtEnvio.getSelectedItem().toString();
+            String PaisDestino = exv.TxtPaises.getSelectedItem().toString();
+            String CiudadOrigen = exv.TxtCuidadOrigen.getText();
+            String CiudadDestino = exv.TxtCiudadDestino.getText();
+            String MonedaPago = exv.TxtMonedaPago.getSelectedItem().toString();
+            String NombreEmpleado = exv.TxtNombreEmp.getText();
+            String NombreFuncionario = exv.TxtNombreFunci.getText();
+
+            if (exv.tabla.getValueAt(exv.tabla.getSelectedRow(), 0) == null
+                    || exv.TxtNombreP.getText().isEmpty()
+                    || exv.TxtPresentacionProducto.getSelectedItem() == null
+                    || exv.TxtCantidad.getText().isEmpty()
+                    || exv.TxtEnvio.getSelectedItem() == null
+                    || exv.TxtPaises.getSelectedItem() == null
+                    || exv.TxtCuidadOrigen.getText().isEmpty()
+                    || exv.TxtCiudadDestino.getText().isEmpty()
+                    || exv.TxtMonedaPago.getSelectedItem() == null
+                    || exv.TxtNombreEmp.getText().isEmpty()
+                    || exv.TxtNombreFunci.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
+                return;
+
+            } else {
+                PreparedStatement ps = cn.prepareStatement("UPDATE exportacion SET "
+                        + "NombrePro=?, "
+                        + "PresentacionPro=?, "
+                        + "CantidadPro=?, "
+                        + "TipoEnvio=?, "
+                        + "CiudadOrigen=?, "
+                        + "CiudadDestino=?, "
+                        + "PaisDestino=?, "
+                        + "MonedaPago=?, "
+                        + "NombreEmpleado=?, "
+                        + "NombreFuncionario=? "
+                        + "WHERE id=?");
+
+                ps.setString(1, NombrePro);
+                ps.setString(2, PresentacionPro);
+                ps.setString(3, CantidadPro);
+                ps.setString(4, TipoEnvio);
+                ps.setString(5, CiudadOrigen);
+                ps.setString(6, CiudadDestino);
+                ps.setString(7, PaisDestino);
+                ps.setString(8, MonedaPago);
+                ps.setString(9, NombreEmpleado);
+                ps.setString(10, NombreFuncionario);
+                ps.setInt(11, id);
+
+                int resultado = ps.executeUpdate();
+
+                if (resultado > 0) {
+                    JOptionPane.showMessageDialog(null, "Exportación actualizada con éxito");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo actualizar la exportación");
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+    }
+
+    // Método para obtener los datos de la fila seleccionada y mostrarlos en el formulario
+    public void mostrarExportacionParaEditar() {
+        int fila = exv.tabla.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(exv, "Debe seleccionar una expotación");
+        } else {
+            int id = Integer.parseInt(exv.tabla.getValueAt(fila, 0).toString());
+            String NombrePro = (String) exv.tabla.getValueAt(fila, 1);
+            String PresentacionPro = (String) exv.tabla.getValueAt(fila, 2).toString();
+            String CantidadPro = (String) exv.tabla.getValueAt(fila, 3).toString();
+            String TipoEnvio = (String) exv.tabla.getValueAt(fila, 4).toString();
+            String PaisDestino = (String) exv.tabla.getValueAt(fila, 5).toString();
+            String CiudadOrigen = (String) exv.tabla.getValueAt(fila, 6).toString();
+            String CiudadDestino = (String) exv.tabla.getValueAt(fila, 7).toString();
+            String MonedaPago = (String) exv.tabla.getValueAt(fila, 8).toString();
+            String NombreEmpleado = (String) exv.tabla.getValueAt(fila, 9).toString();
+            String NombreFuncionario = (String) exv.tabla.getValueAt(fila, 10).toString();
+
+            exv.TxtId.setText("" + id);
+            exv.TxtNombreP.setText(NombrePro);
+            exv.TxtPresentacionProducto.setSelectedItem(PresentacionPro);
+            exv.TxtCantidad.setText(CantidadPro);
+            exv.TxtEnvio.setSelectedItem(TipoEnvio);
+            exv.TxtPaises.setSelectedItem(PaisDestino);
+            exv.TxtCuidadOrigen.setText(CiudadOrigen);
+            exv.TxtCiudadDestino.setText(CiudadDestino);
+            exv.TxtMonedaPago.setSelectedItem(MonedaPago);
+            exv.TxtNombreEmp.setText(NombreEmpleado);
+            exv.TxtNombreFunci.setText(NombreFuncionario);
+
+            // Deshabilitar el botón "Guardar" y habilitar el botón "Actualizar"
+            exv.BtnGuardar.setEnabled(false);
+            exv.BtnActualizar.setEnabled(true);
+
+        }
+    }
+
     public void Registrar() {
 
         String nombre = reg.TxtNombres.getText();
@@ -283,6 +440,7 @@ public void actualizar() {
         exv.TxtMonedaPago.setSelectedItem("Seleccione");
         exv.TxtNombreEmp.setText("");
         exv.TxtNombreFunci.setText("");
+        exv.txtBuscar.setText("");
 
         reg.TxtNombres.setText("");
         reg.TxtApellidos.setText("");
@@ -307,135 +465,71 @@ public void actualizar() {
         }
     }
 
-    //Eventos
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        //Botones Vista exportación
-        if (e.getSource() == exv.BtnGuardar) {
-
-            agregar();
-            limpiarFormulario();
-            limpiarTabla();
-            Listar(exv.tabla);
-
-        }
-
-        if (e.getSource() == exv.Btnsalir) {
-
-            log.setVisible(true);
-            exv.setVisible(false);
-
-        }
-        if (e.getSource() == exv.BtnListar) {
-
-            Listar(exv.tabla);
-            limpiarTabla();
-            Listar(exv.tabla);
-
-        }
-        if (e.getSource() == exv.BtnEditar) {
-
-            int fila = exv.tabla.getSelectedRow();
-
-            if (fila == -1) {
-                JOptionPane.showMessageDialog(exv, "Debe seleccionar una expotación");
-            } else {
-
-                String NombrePro = (String) exv.tabla.getValueAt(fila, 1);
-                int id = Integer.parseInt(exv.tabla.getValueAt(exv.tabla.getSelectedRow(), 0).toString());
-                String PresentacionPro = (String) exv.tabla.getValueAt(fila, 2).toString();
-                String CantidadPro = (String) exv.tabla.getValueAt(fila, 3);
-                String TipoEnvio = (String) exv.tabla.getValueAt(fila, 4).toString();
-                String PaisDestino = (String) exv.tabla.getValueAt(fila, 5).toString();
-                String CiudadOrigen = (String) exv.tabla.getValueAt(fila, 6);
-                String CiudadDestino = (String) exv.tabla.getValueAt(fila, 7);
-                String MonedaPago = (String) (String) exv.tabla.getValueAt(fila, 8).toString();
-                String NombreEmpleado = (String) exv.tabla.getValueAt(fila, 9);
-                String NombreFuncionario = (String) exv.tabla.getValueAt(fila, 10);
-
-                exv.TxtId.setText("" + id);
-                exv.TxtNombreP.setText(NombrePro);
-                exv.TxtPresentacionProducto.setSelectedItem(PresentacionPro);
-                exv.TxtCantidad.setText(CantidadPro);
-                exv.TxtEnvio.setSelectedItem(TipoEnvio);
-                exv.TxtPaises.setSelectedItem(PaisDestino);
-                exv.TxtCuidadOrigen.setText(CiudadOrigen);
-                exv.TxtCiudadDestino.setText(CiudadDestino);
-                exv.TxtMonedaPago.setSelectedItem(MonedaPago);
-                exv.TxtNombreEmp.setText(NombreEmpleado);
-                exv.TxtNombreFunci.setText(NombreFuncionario);
-
-            }
-
-        }
-        if (e.getSource() == exv.BtnActualizar) {
-
-            try {
-                actualizarExportacion();
-                limpiarFormulario();
-                limpiarTabla();
-                Listar(exv.tabla);
-            } catch (Exception ex) {
-
-                JOptionPane.showMessageDialog(null, "No se pudo actualizar exportación");
-            }
-
-        }
-        if (e.getSource() == exv.BtnEiminar) {
-
-            delete();
-            limpiarFormulario();
-            limpiarTabla();
-            Listar(exv.tabla);
-
-        }
-        if (e.getSource() == exv.BtnLimpiarF) {
-
-            limpiarFormulario();
-            Listar(exv.tabla);
-
-        }
-
-        // Botones registrar usurio
-        if (e.getSource() == reg.BtnRegistrar) {
-
-            Registrar();
-
-        }
-
-        if (e.getSource() == reg.BtnSalir) {
-            System.exit(0);
-
-        }
-        if (e.getSource() == reg.BtnMenu) {
-            log.setVisible(true);
-            reg.setVisible(false);
-
-        }
-        if (e.getSource() == reg.BtnLimpiar) {
-
-            limpiarFormulario();
-
-        }
-
-        //Botones login  
-        if (e.getSource() == log.btnIngresar) {
-            Ingreso();
-
-        }
-        if (e.getSource() == log.BtnRegistro) {
-
-            reg.setVisible(true);
-            log.setVisible(false);
-
-        }
-
-        if (e.getSource() == log.BtnSalir) {
-
-            System.exit(0);
-
-        }
-
+    public void keyReleased(KeyEvent e) throws SQLException {
+        buscarDatos();
     }
+
+    public void buscarDatos() {
+        String textoBusqueda = exv.txtBuscar.getText();
+        java.sql.Connection cn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM exportacion WHERE id LIKE ? OR NombrePro LIKE ? OR PresentacionPro LIKE ? OR CantidadPro LIKE ? OR TipoEnvio LIKE ? OR CiudadOrigen LIKE ? OR CiudadDestino LIKE ? OR PaisDestino LIKE ? OR MonedaPago LIKE ? OR NombreEmpleado LIKE ? OR NombreFuncionario LIKE ?";
+
+        try {
+            cn = Conexion.Conectar();
+            ps = cn.prepareStatement(sql);
+            ps.setString(1, "%" + textoBusqueda + "%");
+            ps.setString(2, "%" + textoBusqueda + "%");
+            ps.setString(3, "%" + textoBusqueda + "%");
+            ps.setString(4, "%" + textoBusqueda + "%");
+            ps.setString(5, "%" + textoBusqueda + "%");
+            ps.setString(6, "%" + textoBusqueda + "%");
+            ps.setString(7, "%" + textoBusqueda + "%");
+            ps.setString(8, "%" + textoBusqueda + "%");
+            ps.setString(9, "%" + textoBusqueda + "%");
+            ps.setString(10, "%" + textoBusqueda + "%");
+            ps.setString(11, "%" + textoBusqueda + "%");
+
+            rs = ps.executeQuery();
+
+            DefaultTableModel modelo = (DefaultTableModel) exv.tabla.getModel();
+            modelo.setRowCount(0);
+
+            while (rs.next()) {
+                Object[] fila = new Object[11];
+                fila[0] = rs.getInt("id");
+                fila[1] = rs.getString("NombrePro");
+                fila[2] = rs.getString("PresentacionPro");
+                fila[3] = rs.getString("CantidadPro");
+                fila[4] = rs.getString("TipoEnvio");
+                fila[5] = rs.getString("PaisDestino");
+                fila[6] = rs.getString("CiudadOrigen");
+                fila[7] = rs.getString("CiudadDestino");
+                fila[8] = rs.getString("MonedaPago");
+                fila[9] = rs.getString("NombreEmpleado");
+                fila[10] = rs.getString("NombreFuncionario");
+
+                modelo.addRow(fila);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar los datos: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + ex.getMessage());
+            }
+        }
+    }
+
 }
