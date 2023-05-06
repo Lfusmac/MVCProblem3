@@ -24,6 +24,8 @@ public class Registro extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Registrar Usuario ");
         this.setLocationRelativeTo(null);
+        //BtnRegistrar.setEnabled(false);
+       JblcorreoV.setVisible(false);
     }
 
     /**
@@ -51,6 +53,10 @@ public class Registro extends javax.swing.JFrame {
         BtnMenu = new javax.swing.JButton();
         BtnSalir = new javax.swing.JButton();
         BtnLimpiar = new javax.swing.JButton();
+        JblNomV = new javax.swing.JLabel();
+        JblApeV = new javax.swing.JLabel();
+        JblcorreoV = new javax.swing.JLabel();
+        JblCOntraV = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +77,12 @@ public class Registro extends javax.swing.JFrame {
 
         TxtNombres.setToolTipText("");
 
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyReleased(evt);
+            }
+        });
+
         BtnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnRegistrar.setText("Registrar");
 
@@ -85,6 +97,16 @@ public class Registro extends javax.swing.JFrame {
         BtnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnLimpiar.setText("Limpiar");
 
+        JblNomV.setForeground(new java.awt.Color(255, 0, 0));
+
+        JblApeV.setForeground(new java.awt.Color(255, 0, 0));
+
+        JblcorreoV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        JblcorreoV.setForeground(new java.awt.Color(255, 0, 0));
+        JblcorreoV.setText("Email Invalido");
+
+        JblCOntraV.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout Panel2Layout = new javax.swing.GroupLayout(Panel2);
         Panel2.setLayout(Panel2Layout);
         Panel2Layout.setHorizontalGroup(
@@ -94,26 +116,39 @@ public class Registro extends javax.swing.JFrame {
                     .addGroup(Panel2Layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Panel2Layout.createSequentialGroup()
-                                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(JblContrasena))
-                                .addGap(62, 62, 62)
-                                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TxtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                                    .addComponent(TxtContrasena)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel2Layout.createSequentialGroup()
-                                .addComponent(JblCorreo)
-                                .addGap(128, 128, 128)
-                                .addComponent(txtCorreo))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel2Layout.createSequentialGroup()
                                 .addComponent(JblApellidos)
                                 .addGap(115, 115, 115)
                                 .addComponent(TxtApellidos))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel2Layout.createSequentialGroup()
+                            .addGroup(Panel2Layout.createSequentialGroup()
                                 .addComponent(JblNombres)
                                 .addGap(115, 115, 115)
-                                .addComponent(TxtNombres))))
+                                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TxtNombres)
+                                    .addGroup(Panel2Layout.createSequentialGroup()
+                                        .addComponent(JblNomV, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(Panel2Layout.createSequentialGroup()
+                                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(JblContrasena))
+                                .addGap(60, 60, 60)
+                                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TxtContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                                    .addComponent(TxtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                                    .addGroup(Panel2Layout.createSequentialGroup()
+                                        .addComponent(JblCOntraV, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(Panel2Layout.createSequentialGroup()
+                                .addComponent(JblCorreo)
+                                .addGap(128, 128, 128)
+                                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCorreo)
+                                    .addGroup(Panel2Layout.createSequentialGroup()
+                                        .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(JblApeV, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(JblcorreoV, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(Panel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -129,39 +164,49 @@ public class Registro extends javax.swing.JFrame {
         Panel2Layout.setVerticalGroup(
             Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel2Layout.createSequentialGroup()
-                .addComponent(Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(Panel2Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JblNombres)
+                            .addComponent(TxtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JblNomV, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JblApellidos)
+                            .addComponent(TxtApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1)
+                        .addComponent(JblApeV, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JblCorreo)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JblcorreoV, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TxtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JblCOntraV, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TxtContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JblContrasena))
+                        .addGap(25, 25, 25)
+                        .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnMenu)
+                            .addComponent(BtnRegistrar))
+                        .addGap(18, 18, 18)
+                        .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnSalir)
+                            .addComponent(BtnLimpiar))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(Panel2Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JblNombres)
-                    .addComponent(TxtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JblApellidos)
-                    .addComponent(TxtApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JblCorreo)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JblContrasena))
-                .addGap(37, 37, 37)
-                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnMenu)
-                    .addComponent(BtnRegistrar))
-                .addGap(18, 18, 18)
-                .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnSalir)
-                    .addComponent(BtnLimpiar))
-                .addGap(25, 25, 25))
         );
+
+        JblApeV.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,6 +226,11 @@ public class Registro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtCorreoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyReleased
+        
+     
+    }//GEN-LAST:event_txtCorreoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -234,10 +284,14 @@ public class Registro extends javax.swing.JFrame {
     public javax.swing.JButton BtnRegistrar;
     public javax.swing.JButton BtnSalir;
     private javax.swing.JLabel Icon;
+    public javax.swing.JLabel JblApeV;
     private javax.swing.JLabel JblApellidos;
+    public javax.swing.JLabel JblCOntraV;
     private javax.swing.JLabel JblContrasena;
     private javax.swing.JLabel JblCorreo;
+    public javax.swing.JLabel JblNomV;
     private javax.swing.JLabel JblNombres;
+    public javax.swing.JLabel JblcorreoV;
     private javax.swing.JPanel Panel2;
     public javax.swing.JTextField TxtApellidos;
     public javax.swing.JTextField TxtContrasena;
@@ -246,4 +300,6 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     public javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
+
+   
 }

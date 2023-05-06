@@ -375,8 +375,10 @@ public class controlador implements ActionListener {
         String correo = reg.txtCorreo.getText();
         String usuario = reg.TxtUsuario.getText();
         String contrasena = reg.TxtContrasena.getText();
+        
 
         if (nombre.equals("") || apellidos.equals("") || correo.equals("") || usuario.equals("") || contrasena.equals("")) {
+           
             JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
 
         } else {
