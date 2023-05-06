@@ -4,23 +4,16 @@
  */
 package Modelo;
 
-import Controlador.*;
-import Modelo.*;
 import Vistas.*;
-import java.sql.*;
+import funciones.Encoder;
+
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
 
 /**
  *
@@ -33,53 +26,62 @@ public class Metodos {
     Registro reg = new Registro();
     ExportacionVista exv = new ExportacionVista();
 
+    // ...
     public static boolean InsertarUsuario(usuario x) {
-
         Connection cn = Conexion.Conectar();
         PreparedStatement ps = null;
 
-        String sql = "insert into usuario(nombres,apellidos,correo,usuario,contrasena) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO usuario (nombres, apellidos, correo, usuario, contrasena) VALUES (?, ?, ?, ?, ?)";
 
         try {
+            // Ciframos la contraseña
+            Encoder encoder = new Encoder();
+            String contrasenaCifrada = encoder.encrypt(x.getContrasena());
 
             ps = cn.prepareStatement(sql);
             ps.setString(1, x.getNombres());
             ps.setString(2, x.getApellidos());
             ps.setString(3, x.getCorreo());
             ps.setString(4, x.getUsuario());
-            ps.setString(5, x.getContrasena());
+            ps.setString(5, contrasenaCifrada); // Guardamos la contraseña cifrada en la base de datos
             ps.execute();
             cn.close();
 
             return true;
-
         } catch (Exception e) {
-
             System.out.println(e);
         }
-
         return false;
     }
 
-    public static boolean Autentificacion(String PUsuario, String PContrasena) {
-
+    public static Boolean Autentificacion(String PUsuario, String PContrasena) {
         Connection cn = Conexion.Conectar();
         PreparedStatement ps = null;
         ResultSet rs = null;
+        String sql = "SELECT contrasena FROM usuario WHERE usuario = ?";
 
-        String sql = "select usuario, contrasena from usuario where usuario=? and contrasena=?";
         try {
             ps = cn.prepareStatement(sql);
             ps.setString(1, PUsuario);
-            ps.setString(2, PContrasena);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                cn.close();
-                return true;
+                String contrasenaGuardada = rs.getString("contrasena");
 
+                // Si la contraseña guardada es igual a la proporcionada por el usuario, devolvemos true
+                if (PContrasena.equals(contrasenaGuardada)) {
+                    cn.close();
+                    return true;
+                }
+
+                // Desciframos la contraseña guardada y comparamos con la proporcionada por el usuario
+                Encoder encoder = new Encoder();
+                String contrasenaDescifrada = encoder.decrypt(contrasenaGuardada);
+                if (PContrasena.equals(contrasenaDescifrada)) {
+                    cn.close();
+                    return true;
+                }
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -87,6 +89,7 @@ public class Metodos {
         return false;
     }
 
+    // ...
 //exportación
     public int agregar(Exportacion ex) {
 
@@ -122,7 +125,6 @@ public class Metodos {
         return 1;
     }
 
-   
     public List Listar() {
 
         Connection cn = Conexion.Conectar();
@@ -174,6 +176,5 @@ public class Metodos {
         }
 
     }
-    
 
 }

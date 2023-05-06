@@ -7,7 +7,7 @@ package Vistas;
 import Controlador.controlador;
 import Modelo.Exportacion;
 import Modelo.Metodos;
-import Modelo.Validacion;
+import funciones.Validacion;
 
 import Modelo.usuario;
 import javax.swing.table.DefaultTableModel;

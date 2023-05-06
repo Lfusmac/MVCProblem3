@@ -8,7 +8,7 @@ import Modelo.Conexion;
 import Vistas.ExportacionVista;
 import Modelo.Exportacion;
 import Modelo.Metodos;
-import Modelo.Validacion;
+import funciones.Validacion;
 import Modelo.usuario;
 import Vistas.Login;
 import Vistas.Registro;
@@ -84,7 +84,7 @@ public class controlador implements ActionListener {
 
             try {
                 agregar();
-                limpiarFormulario();
+               // limpiarFormulario();
                 limpiarTabla();
                 Listar(exv.tabla);
 
@@ -144,7 +144,6 @@ public class controlador implements ActionListener {
         if (e.getSource() == reg.BtnRegistrar) {
 
             Registrar();
-            limpiarFormulario();
 
         }
 
@@ -216,6 +215,7 @@ public class controlador implements ActionListener {
 
     }
 
+    /*
     public void agregar() {
 
         String NombrePro = exv.TxtNombreP.getText();
@@ -229,7 +229,7 @@ public class controlador implements ActionListener {
         String NombreEmpleado = exv.TxtNombreEmp.getText();
         String NombreFuncionario = exv.TxtNombreFunci.getText();
 
-        if (NombrePro.equals("") || PresentacionPro.equals("") || CantidadPro.equals("") || TipoEnvio.equals("") || PaisDestino.equals("") || CiudadOrigen.equals("") || CiudadDestino.equals("") || MonedaPago.equals("") || NombreEmpleado.equals("") || NombreFuncionario.equals("")) {
+if (NombrePro.trim().isEmpty() || PresentacionPro.trim().isEmpty() || CantidadPro.trim().isEmpty() || TipoEnvio.trim().isEmpty() || PaisDestino.trim().isEmpty() || CiudadOrigen.trim().isEmpty() || CiudadDestino.trim().isEmpty() || MonedaPago.trim().isEmpty() || NombreEmpleado.trim().isEmpty() || NombreFuncionario.trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
 
@@ -330,6 +330,127 @@ public class controlador implements ActionListener {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
     }
+     */
+
+    public void agregar() {
+
+        String NombrePro = exv.TxtNombreP.getText();
+        String PresentacionPro = exv.TxtPresentacionProducto.getSelectedItem().toString();
+        String CantidadPro = exv.TxtCantidad.getText();
+        String TipoEnvio = exv.TxtEnvio.getSelectedItem().toString();
+        String PaisDestino = exv.TxtPaises.getSelectedItem().toString();
+        String CiudadOrigen = exv.TxtCuidadOrigen.getText();
+        String CiudadDestino = exv.TxtCiudadDestino.getText();
+        String MonedaPago = exv.TxtMonedaPago.getSelectedItem().toString();
+        String NombreEmpleado = exv.TxtNombreEmp.getText();
+        String NombreFuncionario = exv.TxtNombreFunci.getText();
+
+        // Validar que los campos no estén vacíos ni tengan espacios
+        if (NombrePro.trim().isEmpty() || PresentacionPro.trim().isEmpty() || CantidadPro.trim().isEmpty() || TipoEnvio.trim().isEmpty() || PaisDestino.trim().isEmpty() || CiudadOrigen.trim().isEmpty() || CiudadDestino.trim().isEmpty() || MonedaPago.trim().isEmpty() || NombreEmpleado.trim().isEmpty() || NombreFuncionario.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
+        } else {
+            // Validar que el campo CantidadPro sea numérico
+            try {
+                Double.parseDouble(CantidadPro);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "El campo CantidadPro debe ser numérico");
+                return;
+            }
+
+            ex.setNombrePro(NombrePro);
+            ex.setPresentacionPro(PresentacionPro);
+            ex.setCantidadPro(CantidadPro);
+            ex.setTipoEnvio(TipoEnvio);
+            ex.setPaisDestino(PaisDestino);
+            ex.setCiudadOrigen(CiudadOrigen);
+            ex.setCiudadDestino(CiudadDestino);
+            ex.setMonedaPago(MonedaPago);
+            ex.setNombreEmpleado(NombreEmpleado);
+            ex.setNombreFuncionario(NombreFuncionario);
+
+            int r = met.agregar(ex);
+
+            if (r == 1) {
+                JOptionPane.showMessageDialog(null, "Exportación creada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo crear exportación");
+            }
+        }
+    }
+
+    public void actualizarExportacion() {
+        java.sql.Connection cn = Conexion.Conectar();
+
+        // Verificar si se ha seleccionado una fila
+        int filaSeleccionada = exv.tabla.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para actualizar");
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(exv.tabla.getValueAt(filaSeleccionada, 0).toString());
+            String NombrePro = exv.TxtNombreP.getText();
+            String PresentacionPro = exv.TxtPresentacionProducto.getSelectedItem().toString();
+            String CantidadPro = exv.TxtCantidad.getText();
+            String TipoEnvio = exv.TxtEnvio.getSelectedItem().toString();
+            String PaisDestino = exv.TxtPaises.getSelectedItem().toString();
+            String CiudadOrigen = exv.TxtCuidadOrigen.getText();
+            String CiudadDestino = exv.TxtCiudadDestino.getText();
+            String MonedaPago = exv.TxtMonedaPago.getSelectedItem().toString();
+            String NombreEmpleado = exv.TxtNombreEmp.getText();
+            String NombreFuncionario = exv.TxtNombreFunci.getText();
+
+            // Verificar que los campos requeridos no estén vacíos
+            if (NombrePro.isEmpty() || PresentacionPro.isEmpty() || CantidadPro.isEmpty() || TipoEnvio.isEmpty() || PaisDestino.isEmpty() || CiudadOrigen.isEmpty() || CiudadDestino.isEmpty() || MonedaPago.isEmpty() || NombreEmpleado.isEmpty() || NombreFuncionario.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
+                return;
+            }
+
+            // Verificar que el campo CantidadPro sea numérico
+            try {
+                Integer.parseInt(CantidadPro);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "La cantidad debe ser un valor numérico");
+                return;
+            }
+
+            PreparedStatement ps = cn.prepareStatement("UPDATE exportacion SET "
+                    + "NombrePro=?, "
+                    + "PresentacionPro=?, "
+                    + "CantidadPro=?, "
+                    + "TipoEnvio=?, "
+                    + "CiudadOrigen=?, "
+                    + "CiudadDestino=?, "
+                    + "PaisDestino=?, "
+                    + "MonedaPago=?, "
+                    + "NombreEmpleado=?, "
+                    + "NombreFuncionario=? "
+                    + "WHERE id=?");
+
+            ps.setString(1, NombrePro);
+            ps.setString(2, PresentacionPro);
+            ps.setString(3, CantidadPro);
+            ps.setString(4, TipoEnvio);
+            ps.setString(5, CiudadOrigen);
+            ps.setString(6, CiudadDestino);
+            ps.setString(7, PaisDestino);
+            ps.setString(8, MonedaPago);
+            ps.setString(9, NombreEmpleado);
+            ps.setString(10, NombreFuncionario);
+            ps.setInt(11, id);
+
+            int resultado = ps.executeUpdate();
+
+            if (resultado > 0) {
+                JOptionPane.showMessageDialog(null, "Exportación actualizada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar la exportación");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+    }
 
     // Método para obtener los datos de la fila seleccionada y mostrarlos en el formulario
     public void mostrarExportacionParaEditar() {
@@ -369,7 +490,6 @@ public class controlador implements ActionListener {
         }
     }
 
-   
     public void Registrar() {
 
         String nombre = reg.TxtNombres.getText();
@@ -459,7 +579,7 @@ public class controlador implements ActionListener {
         reg.txtCorreo.setText("");
         reg.TxtUsuario.setText("");
         reg.TxtContrasena.setText("");
-        
+
         log.TxtUsuario.setText("");
         log.TxtContrasena.setText("");
 
