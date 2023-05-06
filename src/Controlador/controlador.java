@@ -8,13 +8,14 @@ import Modelo.Conexion;
 import Vistas.ExportacionVista;
 import Modelo.Exportacion;
 import Modelo.Metodos;
+import Modelo.Validacion;
 import Modelo.usuario;
 import Vistas.Login;
 import Vistas.Registro;
-import com.sun.jdi.connect.spi.Connection;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
+
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JFrame;
@@ -24,8 +25,6 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -40,6 +39,7 @@ public class controlador implements ActionListener {
     Registro reg = new Registro();
     ExportacionVista exv = new ExportacionVista();
     DefaultTableModel modelo = new DefaultTableModel();
+    Validacion validacion = new Validacion();
 
     public controlador(Login log, Registro reg, usuario user, ExportacionVista exv, Exportacion ex, DefaultTableModel modelo, Metodos met) {
 
@@ -137,7 +137,6 @@ public class controlador implements ActionListener {
 
         if (e.getSource() == exv.btnBuscar) {
 
-           
             buscarDatos();
         }
 
@@ -145,6 +144,7 @@ public class controlador implements ActionListener {
         if (e.getSource() == reg.BtnRegistrar) {
 
             Registrar();
+            limpiarFormulario();
 
         }
 
@@ -166,6 +166,7 @@ public class controlador implements ActionListener {
         //Botones login  
         if (e.getSource() == log.btnIngresar) {
             Ingreso();
+            limpiarFormulario();
 
         }
         if (e.getSource() == log.BtnRegistro) {
@@ -368,6 +369,7 @@ public class controlador implements ActionListener {
         }
     }
 
+   
     public void Registrar() {
 
         String nombre = reg.TxtNombres.getText();
@@ -375,13 +377,22 @@ public class controlador implements ActionListener {
         String correo = reg.txtCorreo.getText();
         String usuario = reg.TxtUsuario.getText();
         String contrasena = reg.TxtContrasena.getText();
-        
+
+        boolean camposValidos = true;
 
         if (nombre.equals("") || apellidos.equals("") || correo.equals("") || usuario.equals("") || contrasena.equals("")) {
-           
-            JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
 
-        } else {
+            JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
+            camposValidos = false;
+
+        }
+
+        if (camposValidos && !validacion.validarCorreo(correo)) {
+            JOptionPane.showMessageDialog(null, "El correo electrónico no es válido", "Error de validación", JOptionPane.ERROR_MESSAGE);
+            camposValidos = false;
+        }
+
+        if (camposValidos) {
             x.setNombres(reg.TxtNombres.getText());
             x.setApellidos(reg.TxtApellidos.getText());
             x.setCorreo(reg.txtCorreo.getText());
@@ -395,7 +406,6 @@ public class controlador implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario no registrado");
             }
-
         }
 
     }
@@ -449,6 +459,9 @@ public class controlador implements ActionListener {
         reg.txtCorreo.setText("");
         reg.TxtUsuario.setText("");
         reg.TxtContrasena.setText("");
+        
+        log.TxtUsuario.setText("");
+        log.TxtContrasena.setText("");
 
     }
 

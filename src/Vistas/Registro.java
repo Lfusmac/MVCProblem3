@@ -7,6 +7,7 @@ package Vistas;
 import Controlador.controlador;
 import Modelo.Exportacion;
 import Modelo.Metodos;
+import Modelo.Validacion;
 
 import Modelo.usuario;
 import javax.swing.table.DefaultTableModel;
@@ -25,7 +26,7 @@ public class Registro extends javax.swing.JFrame {
         this.setTitle("Registrar Usuario ");
         this.setLocationRelativeTo(null);
         //BtnRegistrar.setEnabled(false);
-       JblcorreoV.setVisible(false);
+        JblcorreoV.setVisible(false);
     }
 
     /**
@@ -226,10 +227,17 @@ public class Registro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+   
+    private Validacion validacion = new Validacion();
 
     private void txtCorreoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyReleased
-        
-     
+
+        String correo = txtCorreo.getText();
+        if (validacion.validarCorreo(correo)) {
+            JblcorreoV.setVisible(false);
+        } else {
+            JblcorreoV.setVisible(true);
+        }
     }//GEN-LAST:event_txtCorreoKeyReleased
 
     /**
@@ -263,12 +271,12 @@ public class Registro extends javax.swing.JFrame {
         usuario user = new usuario();
         Login log = new Login();
         Registro reg = new Registro();
-        ExportacionVista exv=new ExportacionVista();
-        Exportacion ex=new Exportacion();
+        ExportacionVista exv = new ExportacionVista();
+        Exportacion ex = new Exportacion();
         DefaultTableModel modelo = new DefaultTableModel();
         Metodos met = new Metodos();
-        
-        controlador con = new controlador(log, reg, user, exv, ex,modelo, met);
+
+        controlador con = new controlador(log, reg, user, exv, ex, modelo, met);
         reg.setVisible(true);
         /*
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -301,5 +309,4 @@ public class Registro extends javax.swing.JFrame {
     public javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
 
-   
 }
