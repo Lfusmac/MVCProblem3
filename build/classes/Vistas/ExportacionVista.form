@@ -207,10 +207,11 @@
               <Font name="Segoe UI" size="12" style="1"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Seleccione"/>
+              <StringArray count="4">
+                <StringItem index="0" value="Seleccionar"/>
                 <StringItem index="1" value="Entera"/>
                 <StringItem index="2" value="En polvo"/>
+                <StringItem index="3" value="Granulada"/>
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -238,7 +239,7 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="6">
-                <StringItem index="0" value="Seleccione"/>
+                <StringItem index="0" value="Seleccionar"/>
                 <StringItem index="1" value="Italia"/>
                 <StringItem index="2" value="Francia"/>
                 <StringItem index="3" value="Espa&#xf1;a"/>
@@ -271,7 +272,7 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
-                <StringItem index="0" value="Seleccione"/>
+                <StringItem index="0" value="Seleccionar"/>
                 <StringItem index="1" value="Mar&#xed;timo"/>
                 <StringItem index="2" value="Terrestre"/>
                 <StringItem index="3" value="A&#xe9;reo"/>
@@ -340,7 +341,7 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
-                <StringItem index="0" value="Seleccione"/>
+                <StringItem index="0" value="Seleccionar"/>
                 <StringItem index="1" value="Euros"/>
                 <StringItem index="2" value="D&#xf3;lares"/>
                 <StringItem index="3" value="Pesos"/>

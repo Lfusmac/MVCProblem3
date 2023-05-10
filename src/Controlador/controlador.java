@@ -84,7 +84,7 @@ public class controlador implements ActionListener {
 
             try {
                 agregar();
-               // limpiarFormulario();
+                // limpiarFormulario();
                 limpiarTabla();
                 Listar(exv.tabla);
 
@@ -114,7 +114,6 @@ public class controlador implements ActionListener {
         if (e.getSource() == exv.BtnActualizar) {
 
             actualizarExportacion();
-            limpiarFormulario();
             limpiarTabla();
             Listar(exv.tabla);
 
@@ -215,125 +214,7 @@ public class controlador implements ActionListener {
 
     }
 
-    /*
     public void agregar() {
-
-        String NombrePro = exv.TxtNombreP.getText();
-        String PresentacionPro = exv.TxtPresentacionProducto.getSelectedItem().toString();
-        String CantidadPro = exv.TxtCantidad.getText();
-        String TipoEnvio = exv.TxtEnvio.getSelectedItem().toString();
-        String PaisDestino = exv.TxtPaises.getSelectedItem().toString();
-        String CiudadOrigen = exv.TxtCuidadOrigen.getText();
-        String CiudadDestino = exv.TxtCiudadDestino.getText();
-        String MonedaPago = exv.TxtMonedaPago.getSelectedItem().toString();
-        String NombreEmpleado = exv.TxtNombreEmp.getText();
-        String NombreFuncionario = exv.TxtNombreFunci.getText();
-
-if (NombrePro.trim().isEmpty() || PresentacionPro.trim().isEmpty() || CantidadPro.trim().isEmpty() || TipoEnvio.trim().isEmpty() || PaisDestino.trim().isEmpty() || CiudadOrigen.trim().isEmpty() || CiudadDestino.trim().isEmpty() || MonedaPago.trim().isEmpty() || NombreEmpleado.trim().isEmpty() || NombreFuncionario.trim().isEmpty()) {
-
-            JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
-
-        } else {
-            ex.setNombrePro(NombrePro);
-            ex.setPresentacionPro(PresentacionPro);
-            ex.setCantidadPro(CantidadPro);
-            ex.setTipoEnvio(TipoEnvio);
-            ex.setPaisDestino(PaisDestino);
-            ex.setCiudadOrigen(CiudadOrigen);
-            ex.setCiudadDestino(CiudadDestino);
-            ex.setMonedaPago(MonedaPago);
-            ex.setNombreEmpleado(NombreEmpleado);
-            ex.setNombreFuncionario(NombreFuncionario);
-
-            int r = met.agregar(ex);
-
-            if (r == 1) {
-                JOptionPane.showMessageDialog(null, "Exportación creada con éxito");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo crear exportación");
-            }
-        }
-    }
-
-    public void actualizarExportacion() {
-        java.sql.Connection cn = Conexion.Conectar();
-
-        // Verificar si se ha seleccionado una fila
-        int filaSeleccionada = exv.tabla.getSelectedRow();
-        if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para actualizar");
-            return;
-        }
-
-        try {
-            int id = Integer.parseInt(exv.tabla.getValueAt(filaSeleccionada, 0).toString());
-            String NombrePro = exv.TxtNombreP.getText();
-            String PresentacionPro = exv.TxtPresentacionProducto.getSelectedItem().toString();
-            String CantidadPro = exv.TxtCantidad.getText();
-            String TipoEnvio = exv.TxtEnvio.getSelectedItem().toString();
-            String PaisDestino = exv.TxtPaises.getSelectedItem().toString();
-            String CiudadOrigen = exv.TxtCuidadOrigen.getText();
-            String CiudadDestino = exv.TxtCiudadDestino.getText();
-            String MonedaPago = exv.TxtMonedaPago.getSelectedItem().toString();
-            String NombreEmpleado = exv.TxtNombreEmp.getText();
-            String NombreFuncionario = exv.TxtNombreFunci.getText();
-
-            if (exv.tabla.getValueAt(exv.tabla.getSelectedRow(), 0) == null
-                    || exv.TxtNombreP.getText().isEmpty()
-                    || exv.TxtPresentacionProducto.getSelectedItem() == null
-                    || exv.TxtCantidad.getText().isEmpty()
-                    || exv.TxtEnvio.getSelectedItem() == null
-                    || exv.TxtPaises.getSelectedItem() == null
-                    || exv.TxtCuidadOrigen.getText().isEmpty()
-                    || exv.TxtCiudadDestino.getText().isEmpty()
-                    || exv.TxtMonedaPago.getSelectedItem() == null
-                    || exv.TxtNombreEmp.getText().isEmpty()
-                    || exv.TxtNombreFunci.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
-                return;
-
-            } else {
-                PreparedStatement ps = cn.prepareStatement("UPDATE exportacion SET "
-                        + "NombrePro=?, "
-                        + "PresentacionPro=?, "
-                        + "CantidadPro=?, "
-                        + "TipoEnvio=?, "
-                        + "CiudadOrigen=?, "
-                        + "CiudadDestino=?, "
-                        + "PaisDestino=?, "
-                        + "MonedaPago=?, "
-                        + "NombreEmpleado=?, "
-                        + "NombreFuncionario=? "
-                        + "WHERE id=?");
-
-                ps.setString(1, NombrePro);
-                ps.setString(2, PresentacionPro);
-                ps.setString(3, CantidadPro);
-                ps.setString(4, TipoEnvio);
-                ps.setString(5, CiudadOrigen);
-                ps.setString(6, CiudadDestino);
-                ps.setString(7, PaisDestino);
-                ps.setString(8, MonedaPago);
-                ps.setString(9, NombreEmpleado);
-                ps.setString(10, NombreFuncionario);
-                ps.setInt(11, id);
-
-                int resultado = ps.executeUpdate();
-
-                if (resultado > 0) {
-                    JOptionPane.showMessageDialog(null, "Exportación actualizada con éxito");
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo actualizar la exportación");
-                }
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-        }
-    }
-     */
-
-    public void agregar() {
-
         String NombrePro = exv.TxtNombreP.getText();
         String PresentacionPro = exv.TxtPresentacionProducto.getSelectedItem().toString();
         String CantidadPro = exv.TxtCantidad.getText();
@@ -346,14 +227,16 @@ if (NombrePro.trim().isEmpty() || PresentacionPro.trim().isEmpty() || CantidadPr
         String NombreFuncionario = exv.TxtNombreFunci.getText();
 
         // Validar que los campos no estén vacíos ni tengan espacios
-        if (NombrePro.trim().isEmpty() || PresentacionPro.trim().isEmpty() || CantidadPro.trim().isEmpty() || TipoEnvio.trim().isEmpty() || PaisDestino.trim().isEmpty() || CiudadOrigen.trim().isEmpty() || CiudadDestino.trim().isEmpty() || MonedaPago.trim().isEmpty() || NombreEmpleado.trim().isEmpty() || NombreFuncionario.trim().isEmpty()) {
+        if (NombrePro.trim().isEmpty() || CantidadPro.trim().isEmpty() || CiudadOrigen.trim().isEmpty() || CiudadDestino.trim().isEmpty() || NombreEmpleado.trim().isEmpty() || NombreFuncionario.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe completar todos los datos");
+        } else if (PresentacionPro.equals("Seleccionar") || TipoEnvio.equals("Seleccionar") || PaisDestino.equals("Seleccionar") || MonedaPago.equals("Seleccionar")) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un valor en todos los campos");
         } else {
             // Validar que el campo CantidadPro sea numérico
             try {
                 Double.parseDouble(CantidadPro);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "El campo CantidadPro debe ser numérico");
+                JOptionPane.showMessageDialog(null, "El campo Cantidad de producto debe ser numérico");
                 return;
             }
 
@@ -402,8 +285,11 @@ if (NombrePro.trim().isEmpty() || PresentacionPro.trim().isEmpty() || CantidadPr
             String NombreFuncionario = exv.TxtNombreFunci.getText();
 
             // Verificar que los campos requeridos no estén vacíos
-            if (NombrePro.isEmpty() || PresentacionPro.isEmpty() || CantidadPro.isEmpty() || TipoEnvio.isEmpty() || PaisDestino.isEmpty() || CiudadOrigen.isEmpty() || CiudadDestino.isEmpty() || MonedaPago.isEmpty() || NombreEmpleado.isEmpty() || NombreFuncionario.isEmpty()) {
+            if (NombrePro.isEmpty() || CantidadPro.isEmpty() || CiudadOrigen.isEmpty() || CiudadDestino.isEmpty() || NombreEmpleado.isEmpty() || NombreFuncionario.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
+                return;
+            } else if (PresentacionPro.equals("Seleccionar") || TipoEnvio.equals("Seleccionar") || PaisDestino.equals("Seleccionar") || MonedaPago.equals("Seleccionar")) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un valor en todos los campos");
                 return;
             }
 
@@ -563,13 +449,13 @@ if (NombrePro.trim().isEmpty() || PresentacionPro.trim().isEmpty() || CantidadPr
 
         exv.TxtId.setText("");
         exv.TxtNombreP.setText("");
-        exv.TxtPresentacionProducto.setSelectedItem("Seleccione");
+        exv.TxtPresentacionProducto.setSelectedItem("Seleccionar");
         exv.TxtCantidad.setText("");
-        exv.TxtEnvio.setSelectedItem("Seleccione");
-        exv.TxtPaises.setSelectedItem("Seleccione");
+        exv.TxtEnvio.setSelectedItem("Seleccionar");
+        exv.TxtPaises.setSelectedItem("Seleccionar");
         exv.TxtCuidadOrigen.setText("");
         exv.TxtCiudadDestino.setText("");
-        exv.TxtMonedaPago.setSelectedItem("Seleccione");
+        exv.TxtMonedaPago.setSelectedItem("Seleccionar");
         exv.TxtNombreEmp.setText("");
         exv.TxtNombreFunci.setText("");
         exv.txtBuscar.setText("");

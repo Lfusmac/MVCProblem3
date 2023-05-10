@@ -106,17 +106,17 @@ public class ExportacionVista extends javax.swing.JFrame {
         PanelExportacion.add(TxtNombreEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 240, 250, -1));
 
         TxtPresentacionProducto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TxtPresentacionProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Entera", "En polvo" }));
+        TxtPresentacionProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Entera", "En polvo", "Granulada" }));
         TxtPresentacionProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Presentacion Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         PanelExportacion.add(TxtPresentacionProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 62, 160, 60));
 
         TxtPaises.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TxtPaises.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Italia", "Francia", "España", "Estados unidos", "Alemania" }));
+        TxtPaises.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Italia", "Francia", "España", "Estados unidos", "Alemania" }));
         TxtPaises.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista Países de destino", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         PanelExportacion.add(TxtPaises, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 260, 160, 70));
 
         TxtEnvio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TxtEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Marítimo", "Terrestre", "Aéreo" }));
+        TxtEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Marítimo", "Terrestre", "Aéreo" }));
         TxtEnvio.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo de envio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         PanelExportacion.add(TxtEnvio, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 160, 60));
 
@@ -127,7 +127,7 @@ public class ExportacionVista extends javax.swing.JFrame {
         PanelExportacion.add(TxtCuidadOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 190, 182, 60));
 
         TxtMonedaPago.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TxtMonedaPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Euros", "Dólares", "Pesos" }));
+        TxtMonedaPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Euros", "Dólares", "Pesos" }));
         TxtMonedaPago.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Moneda  de pago", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         TxtMonedaPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
